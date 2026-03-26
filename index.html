@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morse Code Explorer - Learn Morse Code!</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Morse Code Explorer</h1>
+    <p class="subtitle">Learn the secret language of dots and dashes!</p>
+    <nav>
+      <button class="nav-btn active" data-section="learn">Learn</button>
+      <button class="nav-btn" data-section="reference">Reference Chart</button>
+      <button class="nav-btn" data-section="encode">Encode</button>
+      <button class="nav-btn" data-section="decode">Decode</button>
+      <button class="nav-btn" data-section="quiz">Quiz</button>
+      <button class="nav-btn" data-section="listen">Listen</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- LEARN SECTION -->
+    <section id="learn" class="section active">
+      <h2>What is Morse Code?</h2>
+      <div class="intro-card">
+        <p>Morse Code is a way to send messages using just two signals:</p>
+        <div class="signal-demo">
+          <div class="signal-box">
+            <span class="dot-symbol">&#9679;</span>
+            <p><strong>Dot</strong> (short signal)</p>
+            <p class="signal-text">Written as a period: <strong>.</strong></p>
+          </div>
+          <div class="signal-box">
+            <span class="dash-symbol">&#9644;</span>
+            <p><strong>Dash</strong> (long signal)</p>
+            <p class="signal-text">Written as a hyphen: <strong>-</strong></p>
+          </div>
+        </div>
+        <p>People used Morse Code to send messages over telegraphs and radios. The most famous Morse Code signal is <strong>SOS</strong> (<code>... --- ...</code>), which means "Help!"</p>
+      </div>
+
+      <h2>Try It Out!</h2>
+      <p>Click a letter to see and hear its Morse Code:</p>
+      <div class="letter-grid" id="letter-grid"></div>
+      <div id="letter-display" class="letter-display hidden">
+        <span id="display-letter" class="big-letter"></span>
+        <span id="display-morse" class="big-morse"></span>
+        <div id="display-visual" class="morse-visual"></div>
+        <button id="play-letter-btn" class="play-btn">Play Sound</button>
+      </div>
+    </section>
+
+    <!-- REFERENCE CHART -->
+    <section id="reference" class="section">
+      <h2>Morse Code Reference Chart</h2>
+      <p>Here is every letter and number in Morse Code:</p>
+      <div class="ref-grid" id="ref-grid"></div>
+    </section>
+
+    <!-- ENCODE SECTION -->
+    <section id="encode" class="section">
+      <h2>Encode: Text to Morse Code</h2>
+      <p>Type a message and see it in Morse Code!</p>
+      <div class="exercise-card">
+        <textarea id="encode-input" placeholder="Type your message here..." rows="3" maxlength="200"></textarea>
+        <button id="encode-btn" class="action-btn">Convert to Morse Code</button>
+        <div id="encode-output" class="output-box"></div>
+        <button id="encode-play-btn" class="play-btn hidden">Play Morse Code Sound</button>
+      </div>
+    </section>
+
+    <!-- DECODE SECTION -->
+    <section id="decode" class="section">
+      <h2>Decode: Morse Code to Text</h2>
+      <p>Type Morse Code using dots (.) and dashes (-). Separate letters with spaces and words with <code>/</code>.</p>
+      <div class="exercise-card">
+        <textarea id="decode-input" placeholder="Example: .... . .-.. .-.. ---" rows="3" maxlength="500"></textarea>
+        <button id="decode-btn" class="action-btn">Decode to Text</button>
+        <div id="decode-output" class="output-box"></div>
+      </div>
+    </section>
+
+    <!-- QUIZ SECTION -->
+    <section id="quiz" class="section">
+      <h2>Quiz Time!</h2>
+      <p>Test your Morse Code skills!</p>
+      <div class="quiz-mode-picker">
+        <button class="mode-btn active" data-mode="letter-to-morse">Letter &rarr; Morse</button>
+        <button class="mode-btn" data-mode="morse-to-letter">Morse &rarr; Letter</button>
+        <button class="mode-btn" data-mode="word-to-morse">Word &rarr; Morse</button>
+        <button class="mode-btn" data-mode="morse-to-word">Morse &rarr; Word</button>
+      </div>
+      <div class="exercise-card" id="quiz-area">
+        <div id="quiz-prompt" class="quiz-prompt"></div>
+        <div id="quiz-choices" class="quiz-choices"></div>
+        <input type="text" id="quiz-text-input" class="quiz-text-input hidden" autocomplete="off" spellcheck="false">
+        <button id="quiz-submit" class="action-btn hidden">Check Answer</button>
+        <div id="quiz-feedback" class="quiz-feedback"></div>
+        <div class="quiz-score">
+          Score: <span id="quiz-correct">0</span> / <span id="quiz-total">0</span>
+          <div class="streak-display">Streak: <span id="quiz-streak">0</span> <span id="streak-fire" class="hidden">&#128293;</span></div>
+        </div>
+        <button id="quiz-next" class="action-btn hidden">Next Question</button>
+      </div>
+    </section>
+
+    <!-- LISTEN SECTION -->
+    <section id="listen" class="section">
+      <h2>Listen &amp; Decode</h2>
+      <p>Listen to the Morse Code and figure out the message!</p>
+      <div class="exercise-card">
+        <div class="difficulty-picker">
+          <label>Difficulty:</label>
+          <button class="diff-btn active" data-diff="easy">Easy (1 letter)</button>
+          <button class="diff-btn" data-diff="medium">Medium (3 letters)</button>
+          <button class="diff-btn" data-diff="hard">Hard (Full word)</button>
+        </div>
+        <button id="listen-play" class="action-btn">Play Mystery Message</button>
+        <button id="listen-replay" class="play-btn hidden">Replay</button>
+        <input type="text" id="listen-answer" class="quiz-text-input" placeholder="Type what you hear..." autocomplete="off" spellcheck="false">
+        <button id="listen-check" class="action-btn">Check Answer</button>
+        <div id="listen-feedback" class="quiz-feedback"></div>
+        <button id="listen-reveal" class="secondary-btn hidden">Show Answer</button>
+        <button id="listen-next" class="action-btn hidden">New Message</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Morse Code Explorer &mdash; A fun way to learn Morse Code!</p>
+  </footer>
+
+  <script src="morse.js"></script>
+</body>
+</html>
