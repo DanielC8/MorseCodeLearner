@@ -252,6 +252,7 @@ function generateQuiz() {
   quizTextInput.classList.add('hidden');
   quizSubmit.classList.add('hidden');
   quizTextInput.value = '';
+  quizTextInput.disabled = false;
 
   const letters = Object.keys(MORSE_MAP);
 
