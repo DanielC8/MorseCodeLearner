@@ -252,7 +252,7 @@ function generateQuiz() {
   quizTextInput.classList.add('hidden');
   quizSubmit.classList.add('hidden');
   quizTextInput.value = '';
-  quizTextInput.removeAttribute('readonly');
+  quizTextInput.disabled = false;
 
   const letters = Object.keys(MORSE_MAP);
 
@@ -292,7 +292,7 @@ function generateQuiz() {
     quizTextInput.classList.remove('hidden');
     quizSubmit.classList.remove('hidden');
     quizTextInput.placeholder = 'Type the Morse Code (use . and -)';
-    quizTextInput.focus();
+    setTimeout(() => quizTextInput.focus(), 0);
 
   } else if (quizMode === 'morse-to-word') {
     const word = randomItem(EASY_WORDS);
@@ -303,7 +303,7 @@ function generateQuiz() {
     quizTextInput.classList.remove('hidden');
     quizSubmit.classList.remove('hidden');
     quizTextInput.placeholder = 'Type the word';
-    quizTextInput.focus();
+    setTimeout(() => quizTextInput.focus(), 0);
   }
 }
 
@@ -343,7 +343,7 @@ function checkQuizAnswer(answer, btnEl) {
   // Disable all choice buttons
   document.querySelectorAll('.quiz-choice-btn').forEach(b => b.disabled = true);
   quizSubmit.classList.add('hidden');
-  quizTextInput.setAttribute('readonly', true);
+  quizTextInput.disabled = true;
 
   updateQuizScore();
   quizNext.classList.remove('hidden');
@@ -351,7 +351,7 @@ function checkQuizAnswer(answer, btnEl) {
 }
 
 quizSubmit.addEventListener('click', () => {
-  if (quizTextInput.hasAttribute('readonly')) return;
+  if (quizTextInput.disabled) return;
   const val = quizTextInput.value.trim();
   if (!val) return;
   checkQuizAnswer(val, null);
@@ -361,7 +361,7 @@ quizTextInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
     if (!quizNext.classList.contains('hidden')) {
       generateQuiz();
-    } else if (!quizTextInput.hasAttribute('readonly')) {
+    } else if (!quizTextInput.disabled) {
       const val = quizTextInput.value.trim();
       if (val) checkQuizAnswer(val, null);
     }
