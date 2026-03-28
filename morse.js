@@ -22,6 +22,14 @@ const EASY_WORDS = [
   'NET', 'LOG', 'BED', 'BOX', 'ZIP', 'WIN', 'MOM', 'DAD', 'PET', 'EAR'
 ];
 
+// Simple phrases for quizzes
+const EASY_PHRASES = [
+  'GOOD JOB', 'WELL DONE', 'HI MOM', 'HI DAD', 'GO BIG', 'RED HAT',
+  'BIG DOG', 'HOT SUN', 'RUN FAST', 'PET CAT', 'FUN DAY', 'YES SIR',
+  'NO WAY', 'BUS STOP', 'RED BOX', 'TOP DOG', 'BIG WIN', 'GO HOME',
+  'SIT DOWN', 'GET UP', 'COME IN', 'SAY HI', 'BE KIND', 'HAVE FUN'
+];
+
 // === Audio (Web Audio API) ===
 let audioCtx = null;
 
@@ -303,6 +311,28 @@ function generateQuiz() {
     quizTextInput.classList.remove('hidden');
     quizSubmit.classList.remove('hidden');
     quizTextInput.placeholder = 'Type the word';
+    setTimeout(() => quizTextInput.focus(), 0);
+
+  } else if (quizMode === 'phrase-to-morse') {
+    const phrase = randomItem(EASY_PHRASES);
+    quizAnswer = textToMorse(phrase);
+    quizPrompt.textContent = phrase;
+    quizPrompt.style.letterSpacing = '4px';
+
+    quizTextInput.classList.remove('hidden');
+    quizSubmit.classList.remove('hidden');
+    quizTextInput.placeholder = 'Type the Morse Code (use . - and / for spaces)';
+    setTimeout(() => quizTextInput.focus(), 0);
+
+  } else if (quizMode === 'morse-to-phrase') {
+    const phrase = randomItem(EASY_PHRASES);
+    quizAnswer = phrase;
+    quizPrompt.textContent = textToMorse(phrase);
+    quizPrompt.style.letterSpacing = '4px';
+
+    quizTextInput.classList.remove('hidden');
+    quizSubmit.classList.remove('hidden');
+    quizTextInput.placeholder = 'Type the phrase';
     setTimeout(() => quizTextInput.focus(), 0);
   }
 }
