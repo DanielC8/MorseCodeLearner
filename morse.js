@@ -252,7 +252,7 @@ function generateQuiz() {
   quizTextInput.classList.add('hidden');
   quizSubmit.classList.add('hidden');
   quizTextInput.value = '';
-  quizTextInput.disabled = false;
+  quizTextInput.removeAttribute('readonly');
 
   const letters = Object.keys(MORSE_MAP);
 
@@ -343,13 +343,15 @@ function checkQuizAnswer(answer, btnEl) {
   // Disable all choice buttons
   document.querySelectorAll('.quiz-choice-btn').forEach(b => b.disabled = true);
   quizSubmit.classList.add('hidden');
-  quizTextInput.disabled = true;
+  quizTextInput.setAttribute('readonly', true);
 
   updateQuizScore();
   quizNext.classList.remove('hidden');
+  quizNext.focus();
 }
 
 quizSubmit.addEventListener('click', () => {
+  if (quizTextInput.hasAttribute('readonly')) return;
   const val = quizTextInput.value.trim();
   if (!val) return;
   checkQuizAnswer(val, null);
@@ -359,7 +361,7 @@ quizTextInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
     if (!quizNext.classList.contains('hidden')) {
       generateQuiz();
-    } else {
+    } else if (!quizTextInput.hasAttribute('readonly')) {
       const val = quizTextInput.value.trim();
       if (val) checkQuizAnswer(val, null);
     }
